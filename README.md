@@ -1,16 +1,7 @@
 # converter
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_20230913_171232](https://github.com/ChaserVasya/converter/assets/74578917/b06c353a-6339-4e89-9425-8cb4d244e75b)
+![Screenshot_20230913_171248](https://github.com/ChaserVasya/converter/assets/74578917/aeb47593-d374-4fb4-a431-f566f15a9924)
+![Screenshot_20230913_171308](https://github.com/ChaserVasya/converter/assets/74578917/a2134856-16b1-4259-9a84-365dedad5b05)
