@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:converter/domain/currency_rates/formatters.dart';
-import 'package:converter/domain/currency_rates/validator.dart';
+import 'package:converter/domain/money/formatters.dart';
+import 'package:converter/domain/money/validator.dart';
 import 'package:converter/internal/di/di.dart';
 import 'package:converter/presentation/screens/converting/bloc/converting_bloc.dart';
 import 'package:converter/presentation/screens/converting/widgets/currency_code_button.dart';

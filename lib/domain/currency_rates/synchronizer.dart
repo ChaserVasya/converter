@@ -1,5 +1,5 @@
-import 'package:converter/data/storage_types.dart';
-import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
+import 'package:converter/data/storages/storage_types.dart';
+import 'package:converter/domain/currency_rates/model/currency_rate.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -7,11 +7,14 @@ import 'package:logger/logger.dart';
 @LazySingleton(as: CurrencyRatesRepo)
 class CurrencyReposSynchronizer implements CurrencyRatesRepo {
   CurrencyReposSynchronizer(
-      @local this._local, @remote this._remote, this.logger);
+    @local this._local,
+    @remote this._remote,
+    this._logger,
+  );
 
   final CurrencyRatesRepo _local;
   final CurrencyRatesRepo _remote;
-  final Logger logger;
+  final Logger _logger;
 
   @override
   Future<Map<CurrencyCode, double>> getAll() async {
@@ -20,7 +23,7 @@ class CurrencyReposSynchronizer implements CurrencyRatesRepo {
       final saved = await _local.addAll(fetched);
       return saved;
     } catch (e) {
-      logger.e('$e');
+      _logger.e('$e');
       return _local.getAll();
     }
   }

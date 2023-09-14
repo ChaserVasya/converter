@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
+import 'package:converter/domain/currency_rates/model/currency_rate.dart';
 import 'package:converter/presentation/router/router.dart';
 import 'package:converter/presentation/uikit/underline.dart';
 import 'package:flutter/material.dart';

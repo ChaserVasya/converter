@@ -1,5 +1,5 @@
-import 'package:converter/data/storage_types.dart';
 import 'package:converter/data/storages/currency_rate/dto/dto.dart';
+import 'package:converter/data/storages/storage_types.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';

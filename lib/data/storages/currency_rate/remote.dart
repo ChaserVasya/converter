@@ -1,7 +1,7 @@
 import 'package:converter/data/clients/exchangeratesapi/client.dart';
 import 'package:converter/data/clients/exchangeratesapi/responses/lates_rates.dart';
-import 'package:converter/data/storage_types.dart';
-import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
+import 'package:converter/data/storages/storage_types.dart';
+import 'package:converter/domain/currency_rates/model/currency_rate.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';

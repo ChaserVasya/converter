@@ -1,6 +1,6 @@
 import 'package:converter/domain/currency_rates/converter.dart';
-import 'package:converter/domain/currency_rates/models/money/money.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
+import 'package:converter/domain/money/model/money.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

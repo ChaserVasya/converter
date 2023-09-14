@@ -9,7 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:converter/data/interceptors/log.dart' as _i11;
+import 'package:converter/data/clients/interceptors/log.dart' as _i11;
 import 'package:converter/data/storages/currency_rate/local.dart' as _i9;
 import 'package:converter/data/storages/currency_rate/remote.dart' as _i12;
 import 'package:converter/domain/currency_rates/converter.dart' as _i14;

@@ -1,6 +1,6 @@
-import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
-import 'package:converter/domain/currency_rates/models/money/money.dart';
+import 'package:converter/domain/currency_rates/model/currency_rate.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
+import 'package:converter/domain/money/model/money.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
