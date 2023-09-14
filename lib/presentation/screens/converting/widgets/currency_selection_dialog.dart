@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
-
 import 'package:converter/presentation/router/router.dart';
+import 'package:converter/presentation/uikit/underline.dart';
 import 'package:flutter/material.dart';
 
 Future<CurrencyCode?> showCurrencySelectionDialog(List<CurrencyCode> codes) {
@@ -41,24 +41,20 @@ class _CurrencySelectionDialogBodyState
           child: const Text('Ok'),
         ),
       ],
-      content: SingleChildScrollView(
-        child: Column(
-          children: [
-            for (final code in widget.codes)
-              RadioListTile(
-                value: code,
-                title: Text(code),
-                groupValue: curCode,
-                onChanged: (code) {
-                  setState(() {
-                    curCode = code;
-                  });
-                },
-              ),
-          ],
+      content: Underline(
+        color: Colors.grey,
+        child: ListView.builder(
+          itemBuilder: (context, i) {
+            final code = widget.codes[i];
+            return RadioListTile(
+              value: code,
+              title: Text(code),
+              groupValue: curCode,
+              onChanged: (code) => setState(() => curCode = code),
+            );
+          },
         ),
       ),
     );
-    ;
   }
 }
