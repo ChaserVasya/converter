@@ -6,12 +6,16 @@ class ConvertingEvent with _$ConvertingEvent {
     required CurrencyFields field,
     required double newValue,
   }) = _ValueChanged;
+
   const factory ConvertingEvent.currencySelected({
     required CurrencyFields field,
     required CurrencyCode newCode,
   }) = _CurrencySelected;
+
   const factory ConvertingEvent.swap() = _SwapEvent;
+
   const factory ConvertingEvent.refresh() = _Refresh;
+
   const factory ConvertingEvent.shouldSelectCurrency(
     CurrencyFields field,
   ) = _ShouldSelectCurrency;

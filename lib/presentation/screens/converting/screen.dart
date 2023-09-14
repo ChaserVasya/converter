@@ -40,32 +40,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
               title: const Text('Currency converter'),
             ),
             body: BlocListener<ConvertingBloc, ConvertingState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  selectCurrency: (codes, field) async {
-                    final bloc = context.read<ConvertingBloc>();
-                    final result = await showCurrencySelectionDialog(codes);
-                    if (result == null) return;
-                    bloc.add(ConvertingEvent.currencySelected(
-                      field: field,
-                      newCode: result,
-                    ));
-                  },
-                  swap: (money1, money2) {
-                    if (money2.value != null) {
-                      controller2.text = money2.value!.toStringAsFixed(4);
-                    }
-                    if (money1.value != null) {
-                      controller1.text = money1.value!.toStringAsFixed(4);
-                    }
-                  },
-                  data: (money1, money2) {
-                    if (money2.value != null) {
-                      controller2.text = money2.value!.toStringAsFixed(4);
-                    }
-                  },
-                );
-              },
+              listener: _listenMethods,
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
                 children: [
@@ -90,7 +65,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                 );
                           },
                           keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
+                            decimal: true,
+                          ),
                           inputFormatters: currencyFormatters,
                           validator: currencyValidator,
                         ),
@@ -133,6 +109,33 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
           );
         },
       ),
+    );
+  }
+
+  void _listenMethods(BuildContext context, ConvertingState state) {
+    state.whenOrNull(
+      selectCurrency: (codes, field) async {
+        final bloc = context.read<ConvertingBloc>();
+        final result = await showCurrencySelectionDialog(codes);
+        if (result == null) return;
+        bloc.add(ConvertingEvent.currencySelected(
+          field: field,
+          newCode: result,
+        ));
+      },
+      swap: (money1, money2) {
+        if (money2.value != null) {
+          controller2.text = money2.value!.toStringAsFixed(4);
+        }
+        if (money1.value != null) {
+          controller1.text = money1.value!.toStringAsFixed(4);
+        }
+      },
+      data: (money1, money2) {
+        if (money2.value != null) {
+          controller2.text = money2.value!.toStringAsFixed(4);
+        }
+      },
     );
   }
 }
