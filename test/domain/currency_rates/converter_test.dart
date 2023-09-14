@@ -1,19 +1,19 @@
-import 'package:converter/domain/currency/converter.dart';
-import 'package:converter/domain/currency/models/money/money.dart';
-import 'package:converter/domain/currency/repo.dart';
+import 'package:converter/domain/currency_rates/converter.dart';
+import 'package:converter/domain/currency_rates/models/money/money.dart';
+import 'package:converter/domain/currency_rates/repo.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'converter_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<CurrencyRepo>()])
+@GenerateNiceMocks([MockSpec<CurrencyRatesRepo>()])
 void main() {
-  late MockCurrencyRepo repo;
+  late MockCurrencyRatesRepo repo;
   late CurrencyConverter converter;
 
   setUp(() {
-    repo = MockCurrencyRepo();
+    repo = MockCurrencyRatesRepo();
     converter = CurrencyConverter(repo);
   });
 

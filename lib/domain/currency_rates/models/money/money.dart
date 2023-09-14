@@ -1,4 +1,4 @@
-import 'package:converter/domain/currency/models/currency_rate/currency_rate.dart';
+import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'money.freezed.dart';

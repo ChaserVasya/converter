@@ -17,6 +17,7 @@ class LogInterceptor extends Interceptor {
       _logger.e(
         [
           'path: ${opts.baseUrl}${opts.path}',
+          'headers: ${_prettifyJson(opts.headers)}',
           'error: ${err.error}',
           'message: ${err.message}',
           'data: ${_prettifyJson(err.response?.data)}',
@@ -32,6 +33,7 @@ class LogInterceptor extends Interceptor {
       _logger.d(
         [
           '${options.method} ${options.baseUrl}${options.path}',
+          'headers: ${_prettifyJson(options.headers)}',
           'query: ${_prettifyJson(options.queryParameters)}',
           'data: ${_prettifyJson(options.data)}',
         ].join('\n'),
@@ -47,6 +49,7 @@ class LogInterceptor extends Interceptor {
       _logger.d(
         [
           'path: ${opts.baseUrl}${opts.path}',
+          'headers: ${_prettifyJson(opts.headers)}',
           'data: ${_prettifyJson(response.data)}',
         ].join('\n'),
       );

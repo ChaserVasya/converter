@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:converter/domain/currency/formatters.dart';
-import 'package:converter/domain/currency/validator.dart';
+import 'package:converter/domain/currency_rates/formatters.dart';
+import 'package:converter/domain/currency_rates/validator.dart';
 import 'package:converter/internal/di/di.dart';
 import 'package:converter/presentation/screens/converting/bloc/converting_bloc.dart';
 import 'package:converter/presentation/screens/converting/widgets/currency_code_button.dart';
@@ -33,102 +33,105 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ConvertingBloc>(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Currency converter'),
-        ),
-        body: SingleChildScrollView(
-          child: BlocConsumer<ConvertingBloc, ConvertingState>(
-            listener: (context, state) {
-              state.whenOrNull(selectCurrency: (codes, field) async {
-                final bloc = context.read<ConvertingBloc>();
-                final result = await showCurrencySelectionDialog(codes);
-                if (result == null) return;
-                bloc.add(ConvertingEvent.currencySelected(
-                  field: field,
-                  newCode: result,
-                ));
-              }, swap: (money1, money2) {
-                if (money2.value != null) {
-                  controller2.text = money2.value!.toStringAsFixed(4);
-                }
-                if (money1.value != null) {
-                  controller1.text = money1.value!.toStringAsFixed(4);
-                }
-              }, data: (money1, money2) {
-                if (money2.value != null) {
-                  controller2.text = money2.value!.toStringAsFixed(4);
-                }
-              });
-            },
-            builder: (context, state) {
-              return Padding(
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Currency converter'),
+            ),
+            body: BlocListener<ConvertingBloc, ConvertingState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  selectCurrency: (codes, field) async {
+                    final bloc = context.read<ConvertingBloc>();
+                    final result = await showCurrencySelectionDialog(codes);
+                    if (result == null) return;
+                    bloc.add(ConvertingEvent.currencySelected(
+                      field: field,
+                      newCode: result,
+                    ));
+                  },
+                  swap: (money1, money2) {
+                    if (money2.value != null) {
+                      controller2.text = money2.value!.toStringAsFixed(4);
+                    }
+                    if (money1.value != null) {
+                      controller1.text = money1.value!.toStringAsFixed(4);
+                    }
+                  },
+                  data: (money1, money2) {
+                    if (money2.value != null) {
+                      controller2.text = money2.value!.toStringAsFixed(4);
+                    }
+                  },
+                );
+              },
+              child: ListView(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('You send'),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: TextFormField(
-                            key: fieldKey1,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            controller: controller1,
-                            onChanged: (str) {
-                              final isValid =
-                                  fieldKey1.currentState!.validate();
-                              if (!isValid) return;
-                              context.read<ConvertingBloc>().add(
-                                    ConvertingEvent.valueChanged(
-                                      field: TextFields.first,
-                                      newValue: double.parse(str),
-                                    ),
-                                  );
-                            },
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            inputFormatters: currencyFormatters,
-                            validator: currencyValidator,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          key: fieldKey1,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: controller1,
+                          decoration: const InputDecoration(
+                            labelText: 'You send',
                           ),
+                          onChanged: (str) {
+                            final isValid = fieldKey1.currentState!.validate();
+                            if (!isValid) return;
+                            context.read<ConvertingBloc>().add(
+                                  ConvertingEvent.valueChanged(
+                                    field: TextFields.first,
+                                    newValue: double.parse(str),
+                                  ),
+                                );
+                          },
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          inputFormatters: currencyFormatters,
+                          validator: currencyValidator,
                         ),
-                        const CurrencyCodeButton(
-                          field: TextFields.first,
-                        ),
-                      ],
-                    ),
-                    Center(
-                      child: IconButton(
-                        onPressed: () {
-                          context
-                              .read<ConvertingBloc>()
-                              .add(const ConvertingEvent.swap());
-                        },
-                        icon: const Icon(Icons.swap_vert_outlined),
                       ),
+                      const CurrencyCodeButton(
+                        field: TextFields.first,
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: IconButton(
+                      onPressed: () {
+                        context
+                            .read<ConvertingBloc>()
+                            .add(const ConvertingEvent.swap());
+                      },
+                      icon: const Icon(Icons.swap_vert_outlined),
                     ),
-                    const Text('They get'),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: TextFormField(
-                            readOnly: true,
-                            controller: controller2,
-                            inputFormatters: currencyFormatters,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          readOnly: true,
+                          decoration: const InputDecoration(
+                            labelText: 'They get',
                           ),
+                          controller: controller2,
+                          inputFormatters: currencyFormatters,
                         ),
-                        const CurrencyCodeButton(
-                          field: TextFields.second,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
+                      ),
+                      const CurrencyCodeButton(
+                        field: TextFields.second,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

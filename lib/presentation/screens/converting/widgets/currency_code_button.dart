@@ -1,4 +1,5 @@
-import 'package:converter/domain/currency/models/currency_rate/currency_rate.dart';
+import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
+
 import 'package:converter/presentation/screens/converting/bloc/converting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

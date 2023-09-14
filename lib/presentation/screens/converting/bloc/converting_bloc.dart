@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:converter/domain/currency/converter.dart';
-import 'package:converter/domain/currency/models/currency_rate/currency_rate.dart';
-import 'package:converter/domain/currency/models/money/money.dart';
-import 'package:converter/domain/currency/repo.dart';
+import 'package:converter/domain/currency_rates/converter.dart';
+import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
+import 'package:converter/domain/currency_rates/models/money/money.dart';
+import 'package:converter/domain/currency_rates/repo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -24,7 +24,7 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
   }
 
   final CurrencyConverter _converter;
-  final CurrencyRepo _repo;
+  final CurrencyRatesRepo _repo;
 
   FutureOr<void> _onValueChanged(
     _ValueChanged event,

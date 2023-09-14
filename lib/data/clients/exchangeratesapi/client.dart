@@ -10,6 +10,7 @@ const exchangeClientName = Named('exchangeClient');
 Dio exchangeClient(Logger logger, DotEnv dotenv) {
   final dio = Dio(BaseOptions(
     baseUrl: 'http://api.exchangeratesapi.io/v1/',
+    connectTimeout: const Duration(seconds: 2),
   ));
   return dio
     ..interceptors.addAll([
