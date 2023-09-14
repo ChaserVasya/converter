@@ -40,12 +40,13 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
         emit(state.copyWith.money1(
           value: event.newValue,
         ));
+        add(const _Refresh(CurrencyFields.second));
       case CurrencyFields.second:
         emit(state.copyWith.money2(
           value: event.newValue,
         ));
+        add(const _Refresh(CurrencyFields.first));
     }
-    add(const _Refresh());
   }
 
   FutureOr<void> _onCurrencySelected(
@@ -58,12 +59,13 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
         emit(state.copyWith.money1(
           currencyCode: event.newCode,
         ));
+        add(const _Refresh(CurrencyFields.second));
       case CurrencyFields.second:
         emit(state.copyWith.money2(
           currencyCode: event.newCode,
         ));
+        add(const _Refresh(CurrencyFields.first));
     }
-    add(const _Refresh());
   }
 
   FutureOr<void> _onSwap(_SwapEvent event, Emitter<ConvertingState> emit) {
@@ -76,7 +78,6 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
       money1: curState.money2,
       money2: curState.money1,
     ));
-    add(const _Refresh());
   }
 
   FutureOr<void> _shouldSelectCurrency(
@@ -97,15 +98,52 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
     Emitter<ConvertingState> emit,
   ) async {
     final curState = _ensureDataState();
-    if (curState.money1.currencyCode == null) return;
-    if (curState.money1.value == null) return;
-    if (curState.money2.currencyCode == null) return;
+    final money1 = curState.money1;
+    final money2 = curState.money2;
+    if (money2.currencyCode == null) return;
+    if (money1.currencyCode == null) return;
+
+    // По-умному смотрим что ещё не инициализировано
+    if (money1.value == null && money2.value != null) {
+      return _refreshFirst(curState, emit);
+    } else if (money1.value != null && money2.value == null) {
+      return _refreshSecond(curState, emit);
+    }
+
+    // Если все поля заполнены
+    return switch (event.field) {
+      CurrencyFields.first => _refreshFirst(curState, emit),
+      CurrencyFields.second => _refreshSecond(curState, emit),
+    };
+  }
+
+  Future<void> _refreshSecond(
+      _Data curState, Emitter<ConvertingState> emit) async {
     final newMoney2 = await _converter.convert(
       curState.money1,
       curState.money2.currencyCode!,
     );
+    emit(ConvertingState.refreshed(
+      field: CurrencyFields.second,
+      money: newMoney2,
+    ));
     emit(curState.copyWith(
       money2: newMoney2,
+    ));
+  }
+
+  Future<void> _refreshFirst(
+      _Data curState, Emitter<ConvertingState> emit) async {
+    final newMoney1 = await _converter.convert(
+      curState.money2,
+      curState.money1.currencyCode!,
+    );
+    emit(ConvertingState.refreshed(
+      field: CurrencyFields.first,
+      money: newMoney1,
+    ));
+    emit(curState.copyWith(
+      money1: newMoney1,
     ));
   }
 

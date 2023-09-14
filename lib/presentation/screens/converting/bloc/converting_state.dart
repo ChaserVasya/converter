@@ -6,6 +6,10 @@ class ConvertingState with _$ConvertingState {
     @Default(Money()) Money money1,
     @Default(Money()) Money money2,
   }) = _Data;
+  const factory ConvertingState.refreshed({
+    required Money money,
+    required CurrencyFields field,
+  }) = _Refreshed;
   const factory ConvertingState.swap({
     required Money money1,
     required Money money2,

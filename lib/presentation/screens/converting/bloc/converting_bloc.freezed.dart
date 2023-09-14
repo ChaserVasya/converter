@@ -23,7 +23,7 @@ mixin _$ConvertingEvent {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +32,7 @@ mixin _$ConvertingEvent {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ mixin _$ConvertingEvent {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) =>
@@ -172,7 +172,7 @@ class _$_ValueChanged implements _ValueChanged {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) {
     return valueChanged(field, newValue);
@@ -184,7 +184,7 @@ class _$_ValueChanged implements _ValueChanged {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) {
     return valueChanged?.call(field, newValue);
@@ -196,7 +196,7 @@ class _$_ValueChanged implements _ValueChanged {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) {
@@ -336,7 +336,7 @@ class _$_CurrencySelected implements _CurrencySelected {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) {
     return currencySelected(field, newCode);
@@ -348,7 +348,7 @@ class _$_CurrencySelected implements _CurrencySelected {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) {
     return currencySelected?.call(field, newCode);
@@ -360,7 +360,7 @@ class _$_CurrencySelected implements _CurrencySelected {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) {
@@ -466,7 +466,7 @@ class _$_SwapEvent implements _SwapEvent {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) {
     return swap();
@@ -478,7 +478,7 @@ class _$_SwapEvent implements _SwapEvent {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) {
     return swap?.call();
@@ -490,7 +490,7 @@ class _$_SwapEvent implements _SwapEvent {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) {
@@ -550,6 +550,8 @@ abstract class _$$_RefreshCopyWith<$Res> {
   factory _$$_RefreshCopyWith(
           _$_Refresh value, $Res Function(_$_Refresh) then) =
       __$$_RefreshCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CurrencyFields field});
 }
 
 /// @nodoc
@@ -558,26 +560,50 @@ class __$$_RefreshCopyWithImpl<$Res>
     implements _$$_RefreshCopyWith<$Res> {
   __$$_RefreshCopyWithImpl(_$_Refresh _value, $Res Function(_$_Refresh) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+  }) {
+    return _then(_$_Refresh(
+      null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as CurrencyFields,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Refresh implements _Refresh {
-  const _$_Refresh();
+  const _$_Refresh(this.field);
+
+  @override
+  final CurrencyFields field;
 
   @override
   String toString() {
-    return 'ConvertingEvent.refresh()';
+    return 'ConvertingEvent.refresh(field: $field)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Refresh);
+        (other.runtimeType == runtimeType &&
+            other is _$_Refresh &&
+            (identical(other.field, field) || other.field == field));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, field);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshCopyWith<_$_Refresh> get copyWith =>
+      __$$_RefreshCopyWithImpl<_$_Refresh>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -587,10 +613,10 @@ class _$_Refresh implements _Refresh {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) {
-    return refresh();
+    return refresh(field);
   }
 
   @override
@@ -599,10 +625,10 @@ class _$_Refresh implements _Refresh {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) {
-    return refresh?.call();
+    return refresh?.call(field);
   }
 
   @override
@@ -611,12 +637,12 @@ class _$_Refresh implements _Refresh {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) {
     if (refresh != null) {
-      return refresh();
+      return refresh(field);
     }
     return orElse();
   }
@@ -663,7 +689,12 @@ class _$_Refresh implements _Refresh {
 }
 
 abstract class _Refresh implements ConvertingEvent {
-  const factory _Refresh() = _$_Refresh;
+  const factory _Refresh(final CurrencyFields field) = _$_Refresh;
+
+  CurrencyFields get field;
+  @JsonKey(ignore: true)
+  _$$_RefreshCopyWith<_$_Refresh> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -736,7 +767,7 @@ class _$_ShouldSelectCurrency implements _ShouldSelectCurrency {
     required TResult Function(CurrencyFields field, String newCode)
         currencySelected,
     required TResult Function() swap,
-    required TResult Function() refresh,
+    required TResult Function(CurrencyFields field) refresh,
     required TResult Function(CurrencyFields field) shouldSelectCurrency,
   }) {
     return shouldSelectCurrency(field);
@@ -748,7 +779,7 @@ class _$_ShouldSelectCurrency implements _ShouldSelectCurrency {
     TResult? Function(CurrencyFields field, double newValue)? valueChanged,
     TResult? Function(CurrencyFields field, String newCode)? currencySelected,
     TResult? Function()? swap,
-    TResult? Function()? refresh,
+    TResult? Function(CurrencyFields field)? refresh,
     TResult? Function(CurrencyFields field)? shouldSelectCurrency,
   }) {
     return shouldSelectCurrency?.call(field);
@@ -760,7 +791,7 @@ class _$_ShouldSelectCurrency implements _ShouldSelectCurrency {
     TResult Function(CurrencyFields field, double newValue)? valueChanged,
     TResult Function(CurrencyFields field, String newCode)? currencySelected,
     TResult Function()? swap,
-    TResult Function()? refresh,
+    TResult Function(CurrencyFields field)? refresh,
     TResult Function(CurrencyFields field)? shouldSelectCurrency,
     required TResult orElse(),
   }) {
@@ -826,6 +857,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Money money1, Money money2) data,
+    required TResult Function(Money money, CurrencyFields field) refreshed,
     required TResult Function(Money money1, Money money2) swap,
     required TResult Function(List<String> codes, CurrencyFields field)
         selectCurrency,
@@ -834,6 +866,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Money money1, Money money2)? data,
+    TResult? Function(Money money, CurrencyFields field)? refreshed,
     TResult? Function(Money money1, Money money2)? swap,
     TResult? Function(List<String> codes, CurrencyFields field)? selectCurrency,
   }) =>
@@ -841,6 +874,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Money money1, Money money2)? data,
+    TResult Function(Money money, CurrencyFields field)? refreshed,
     TResult Function(Money money1, Money money2)? swap,
     TResult Function(List<String> codes, CurrencyFields field)? selectCurrency,
     required TResult orElse(),
@@ -849,6 +883,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Data value) data,
+    required TResult Function(_Refreshed value) refreshed,
     required TResult Function(_Swap value) swap,
     required TResult Function(_SelectCurrency value) selectCurrency,
   }) =>
@@ -856,6 +891,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Data value)? data,
+    TResult? Function(_Refreshed value)? refreshed,
     TResult? Function(_Swap value)? swap,
     TResult? Function(_SelectCurrency value)? selectCurrency,
   }) =>
@@ -863,6 +899,7 @@ mixin _$ConvertingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Data value)? data,
+    TResult Function(_Refreshed value)? refreshed,
     TResult Function(_Swap value)? swap,
     TResult Function(_SelectCurrency value)? selectCurrency,
     required TResult orElse(),
@@ -980,6 +1017,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Money money1, Money money2) data,
+    required TResult Function(Money money, CurrencyFields field) refreshed,
     required TResult Function(Money money1, Money money2) swap,
     required TResult Function(List<String> codes, CurrencyFields field)
         selectCurrency,
@@ -991,6 +1029,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Money money1, Money money2)? data,
+    TResult? Function(Money money, CurrencyFields field)? refreshed,
     TResult? Function(Money money1, Money money2)? swap,
     TResult? Function(List<String> codes, CurrencyFields field)? selectCurrency,
   }) {
@@ -1001,6 +1040,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Money money1, Money money2)? data,
+    TResult Function(Money money, CurrencyFields field)? refreshed,
     TResult Function(Money money1, Money money2)? swap,
     TResult Function(List<String> codes, CurrencyFields field)? selectCurrency,
     required TResult orElse(),
@@ -1015,6 +1055,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Data value) data,
+    required TResult Function(_Refreshed value) refreshed,
     required TResult Function(_Swap value) swap,
     required TResult Function(_SelectCurrency value) selectCurrency,
   }) {
@@ -1025,6 +1066,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Data value)? data,
+    TResult? Function(_Refreshed value)? refreshed,
     TResult? Function(_Swap value)? swap,
     TResult? Function(_SelectCurrency value)? selectCurrency,
   }) {
@@ -1035,6 +1077,7 @@ class _$_Data implements _Data {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Data value)? data,
+    TResult Function(_Refreshed value)? refreshed,
     TResult Function(_Swap value)? swap,
     TResult Function(_SelectCurrency value)? selectCurrency,
     required TResult orElse(),
@@ -1053,6 +1096,173 @@ abstract class _Data implements ConvertingState {
   Money get money2;
   @JsonKey(ignore: true)
   _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RefreshedCopyWith<$Res> {
+  factory _$$_RefreshedCopyWith(
+          _$_Refreshed value, $Res Function(_$_Refreshed) then) =
+      __$$_RefreshedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Money money, CurrencyFields field});
+
+  $MoneyCopyWith<$Res> get money;
+}
+
+/// @nodoc
+class __$$_RefreshedCopyWithImpl<$Res>
+    extends _$ConvertingStateCopyWithImpl<$Res, _$_Refreshed>
+    implements _$$_RefreshedCopyWith<$Res> {
+  __$$_RefreshedCopyWithImpl(
+      _$_Refreshed _value, $Res Function(_$_Refreshed) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? money = null,
+    Object? field = null,
+  }) {
+    return _then(_$_Refreshed(
+      money: null == money
+          ? _value.money
+          : money // ignore: cast_nullable_to_non_nullable
+              as Money,
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as CurrencyFields,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MoneyCopyWith<$Res> get money {
+    return $MoneyCopyWith<$Res>(_value.money, (value) {
+      return _then(_value.copyWith(money: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_Refreshed implements _Refreshed {
+  const _$_Refreshed({required this.money, required this.field});
+
+  @override
+  final Money money;
+  @override
+  final CurrencyFields field;
+
+  @override
+  String toString() {
+    return 'ConvertingState.refreshed(money: $money, field: $field)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Refreshed &&
+            (identical(other.money, money) || other.money == money) &&
+            (identical(other.field, field) || other.field == field));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, money, field);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RefreshedCopyWith<_$_Refreshed> get copyWith =>
+      __$$_RefreshedCopyWithImpl<_$_Refreshed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Money money1, Money money2) data,
+    required TResult Function(Money money, CurrencyFields field) refreshed,
+    required TResult Function(Money money1, Money money2) swap,
+    required TResult Function(List<String> codes, CurrencyFields field)
+        selectCurrency,
+  }) {
+    return refreshed(money, field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Money money1, Money money2)? data,
+    TResult? Function(Money money, CurrencyFields field)? refreshed,
+    TResult? Function(Money money1, Money money2)? swap,
+    TResult? Function(List<String> codes, CurrencyFields field)? selectCurrency,
+  }) {
+    return refreshed?.call(money, field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Money money1, Money money2)? data,
+    TResult Function(Money money, CurrencyFields field)? refreshed,
+    TResult Function(Money money1, Money money2)? swap,
+    TResult Function(List<String> codes, CurrencyFields field)? selectCurrency,
+    required TResult orElse(),
+  }) {
+    if (refreshed != null) {
+      return refreshed(money, field);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Data value) data,
+    required TResult Function(_Refreshed value) refreshed,
+    required TResult Function(_Swap value) swap,
+    required TResult Function(_SelectCurrency value) selectCurrency,
+  }) {
+    return refreshed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Data value)? data,
+    TResult? Function(_Refreshed value)? refreshed,
+    TResult? Function(_Swap value)? swap,
+    TResult? Function(_SelectCurrency value)? selectCurrency,
+  }) {
+    return refreshed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Data value)? data,
+    TResult Function(_Refreshed value)? refreshed,
+    TResult Function(_Swap value)? swap,
+    TResult Function(_SelectCurrency value)? selectCurrency,
+    required TResult orElse(),
+  }) {
+    if (refreshed != null) {
+      return refreshed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Refreshed implements ConvertingState {
+  const factory _Refreshed(
+      {required final Money money,
+      required final CurrencyFields field}) = _$_Refreshed;
+
+  Money get money;
+  CurrencyFields get field;
+  @JsonKey(ignore: true)
+  _$$_RefreshedCopyWith<_$_Refreshed> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1145,6 +1355,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Money money1, Money money2) data,
+    required TResult Function(Money money, CurrencyFields field) refreshed,
     required TResult Function(Money money1, Money money2) swap,
     required TResult Function(List<String> codes, CurrencyFields field)
         selectCurrency,
@@ -1156,6 +1367,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Money money1, Money money2)? data,
+    TResult? Function(Money money, CurrencyFields field)? refreshed,
     TResult? Function(Money money1, Money money2)? swap,
     TResult? Function(List<String> codes, CurrencyFields field)? selectCurrency,
   }) {
@@ -1166,6 +1378,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Money money1, Money money2)? data,
+    TResult Function(Money money, CurrencyFields field)? refreshed,
     TResult Function(Money money1, Money money2)? swap,
     TResult Function(List<String> codes, CurrencyFields field)? selectCurrency,
     required TResult orElse(),
@@ -1180,6 +1393,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Data value) data,
+    required TResult Function(_Refreshed value) refreshed,
     required TResult Function(_Swap value) swap,
     required TResult Function(_SelectCurrency value) selectCurrency,
   }) {
@@ -1190,6 +1404,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Data value)? data,
+    TResult? Function(_Refreshed value)? refreshed,
     TResult? Function(_Swap value)? swap,
     TResult? Function(_SelectCurrency value)? selectCurrency,
   }) {
@@ -1200,6 +1415,7 @@ class _$_Swap implements _Swap {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Data value)? data,
+    TResult Function(_Refreshed value)? refreshed,
     TResult Function(_Swap value)? swap,
     TResult Function(_SelectCurrency value)? selectCurrency,
     required TResult orElse(),
@@ -1303,6 +1519,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Money money1, Money money2) data,
+    required TResult Function(Money money, CurrencyFields field) refreshed,
     required TResult Function(Money money1, Money money2) swap,
     required TResult Function(List<String> codes, CurrencyFields field)
         selectCurrency,
@@ -1314,6 +1531,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Money money1, Money money2)? data,
+    TResult? Function(Money money, CurrencyFields field)? refreshed,
     TResult? Function(Money money1, Money money2)? swap,
     TResult? Function(List<String> codes, CurrencyFields field)? selectCurrency,
   }) {
@@ -1324,6 +1542,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Money money1, Money money2)? data,
+    TResult Function(Money money, CurrencyFields field)? refreshed,
     TResult Function(Money money1, Money money2)? swap,
     TResult Function(List<String> codes, CurrencyFields field)? selectCurrency,
     required TResult orElse(),
@@ -1338,6 +1557,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Data value) data,
+    required TResult Function(_Refreshed value) refreshed,
     required TResult Function(_Swap value) swap,
     required TResult Function(_SelectCurrency value) selectCurrency,
   }) {
@@ -1348,6 +1568,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Data value)? data,
+    TResult? Function(_Refreshed value)? refreshed,
     TResult? Function(_Swap value)? swap,
     TResult? Function(_SelectCurrency value)? selectCurrency,
   }) {
@@ -1358,6 +1579,7 @@ class _$_SelectCurrency implements _SelectCurrency {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Data value)? data,
+    TResult Function(_Refreshed value)? refreshed,
     TResult Function(_Swap value)? swap,
     TResult Function(_SelectCurrency value)? selectCurrency,
     required TResult orElse(),

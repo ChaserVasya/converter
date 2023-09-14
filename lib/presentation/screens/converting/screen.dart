@@ -21,11 +21,13 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
   final controller2 = TextEditingController();
 
   final fieldKey1 = GlobalKey<FormFieldState>();
+  final fieldKey2 = GlobalKey<FormFieldState>();
 
   @override
   void dispose() {
     controller1.dispose();
     controller2.dispose();
+
     super.dispose();
   }
 
@@ -51,6 +53,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           key: fieldKey1,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: controller1,
+                          inputFormatters: currencyFormatters,
+                          validator: currencyValidator,
                           decoration: const InputDecoration(
                             labelText: 'You send',
                           ),
@@ -67,8 +71,6 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           keyboardType: const TextInputType.numberWithOptions(
                             decimal: true,
                           ),
-                          inputFormatters: currencyFormatters,
-                          validator: currencyValidator,
                         ),
                       ),
                       const CurrencyCodeButton(
@@ -90,12 +92,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                     children: [
                       Flexible(
                         child: TextFormField(
-                          readOnly: true,
+                          key: fieldKey2,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: controller2,
+                          inputFormatters: currencyFormatters,
+                          validator: currencyValidator,
                           decoration: const InputDecoration(
                             labelText: 'They get',
                           ),
-                          controller: controller2,
-                          inputFormatters: currencyFormatters,
+                          onChanged: (str) {
+                            final isValid = fieldKey2.currentState!.validate();
+                            if (!isValid) return;
+                            context.read<ConvertingBloc>().add(
+                                  ConvertingEvent.valueChanged(
+                                    field: CurrencyFields.second,
+                                    newValue: double.parse(str),
+                                  ),
+                                );
+                          },
                         ),
                       ),
                       const CurrencyCodeButton(
@@ -131,9 +145,17 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
           controller1.text = money1.value!.toStringAsFixed(4);
         }
       },
-      data: (money1, money2) {
-        if (money2.value != null) {
-          controller2.text = money2.value!.toStringAsFixed(4);
+      refreshed: (money, field) {
+        final value = money.value?.toStringAsFixed(4);
+        switch (field) {
+          case CurrencyFields.first:
+            if (value != null) {
+              controller1.text = value;
+            }
+          case CurrencyFields.second:
+            if (value != null) {
+              controller2.text = value;
+            }
         }
       },
     );

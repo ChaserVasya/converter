@@ -14,7 +14,9 @@ class ConvertingEvent with _$ConvertingEvent {
 
   const factory ConvertingEvent.swap() = _SwapEvent;
 
-  const factory ConvertingEvent.refresh() = _Refresh;
+  const factory ConvertingEvent.refresh(
+    CurrencyFields field,
+  ) = _Refresh;
 
   const factory ConvertingEvent.shouldSelectCurrency(
     CurrencyFields field,
