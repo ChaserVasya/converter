@@ -44,6 +44,7 @@ class _CurrencySelectionDialogBodyState
       content: Underline(
         color: Colors.grey,
         child: ListView.builder(
+          itemCount:  widget.codes.length,
           itemBuilder: (context, i) {
             final code = widget.codes[i];
             return RadioListTile(
