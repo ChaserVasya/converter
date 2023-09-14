@@ -36,11 +36,11 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
   ) {
     final state = _ensureDataState();
     switch (event.field) {
-      case TextFields.first:
+      case CurrencyFields.first:
         emit(state.copyWith.money1(
           value: event.newValue,
         ));
-      case TextFields.second:
+      case CurrencyFields.second:
         emit(state.copyWith.money2(
           value: event.newValue,
         ));
@@ -54,11 +54,11 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
   ) async {
     final state = _ensureDataState();
     switch (event.field) {
-      case TextFields.first:
+      case CurrencyFields.first:
         emit(state.copyWith.money1(
           currencyCode: event.newCode,
         ));
-      case TextFields.second:
+      case CurrencyFields.second:
         emit(state.copyWith.money2(
           currencyCode: event.newCode,
         ));

@@ -12,6 +12,6 @@ class ConvertingState with _$ConvertingState {
   }) = _Swap;
   const factory ConvertingState.selectCurrency({
     required List<CurrencyCode> codes,
-    required TextFields field,
+    required CurrencyFields field,
   }) = _SelectCurrency;
 }

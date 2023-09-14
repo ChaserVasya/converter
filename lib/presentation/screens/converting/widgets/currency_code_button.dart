@@ -9,7 +9,7 @@ class CurrencyCodeButton extends StatelessWidget {
     required this.field,
   });
 
-  final TextFields field;
+  final CurrencyFields field;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,9 @@ class CurrencyCodeButton extends StatelessWidget {
             final code = state.mapOrNull(
               data: (state) {
                 switch (field) {
-                  case TextFields.first:
+                  case CurrencyFields.first:
                     return state.money1.currencyCode;
-                  case TextFields.second:
+                  case CurrencyFields.second:
                     return state.money2.currencyCode;
                 }
               },

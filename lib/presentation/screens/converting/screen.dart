@@ -84,7 +84,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                             if (!isValid) return;
                             context.read<ConvertingBloc>().add(
                                   ConvertingEvent.valueChanged(
-                                    field: TextFields.first,
+                                    field: CurrencyFields.first,
                                     newValue: double.parse(str),
                                   ),
                                 );
@@ -96,7 +96,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         ),
                       ),
                       const CurrencyCodeButton(
-                        field: TextFields.first,
+                        field: CurrencyFields.first,
                       ),
                     ],
                   ),
@@ -123,7 +123,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         ),
                       ),
                       const CurrencyCodeButton(
-                        field: TextFields.second,
+                        field: CurrencyFields.second,
                       ),
                     ],
                   ),
