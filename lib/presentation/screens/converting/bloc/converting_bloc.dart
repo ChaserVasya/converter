@@ -5,6 +5,7 @@ import 'package:converter/domain/currency_rates/converter.dart';
 import 'package:converter/domain/currency_rates/models/currency_rate/currency_rate.dart';
 import 'package:converter/domain/currency_rates/models/money/money.dart';
 import 'package:converter/domain/currency_rates/repo.dart';
+import 'package:converter/utils/bloc_debounce.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,7 +17,10 @@ part 'converting_state.dart';
 class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
   ConvertingBloc(this._converter, this._repo)
       : super(const ConvertingState.data()) {
-    on<_ValueChanged>(_onValueChanged);
+    on<_ValueChanged>(
+      _onValueChanged,
+      transformer: debounceSequential(const Duration(milliseconds: 500)),
+    );
     on<_CurrencySelected>(_onCurrencySelected);
     on<_SwapEvent>(_onSwap);
     on<_ShouldSelectCurrency>(_shouldSelectCurrency);
