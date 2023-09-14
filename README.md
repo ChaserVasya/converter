@@ -1,6 +1,27 @@
-# converter
+# Converter
 
+## Функциональное тз
+- Возможность ввести число и увидеть сконвертированное значение
+- Выбор валюты для обоих чисел
+- Свап валют и значений
+- Ввод числа в верхнее поле, нижнее рид-онли
+- (есть тест) При взятии данных из сети данные дублируютя в локальное хранилище 
+- (есть тест) При невозможности взять данные из сети данные берутся из локального хранилища
+- (есть тест) Значения сумм конвертируются в соответствии с данными рейтов
 
-<img src="https://github.com/ChaserVasya/converter/assets/74578917/b06c353a-6339-4e89-9425-8cb4d244e75b" alt="drawing" width="200"/>
-<img src="https://github.com/ChaserVasya/converter/assets/74578917/aeb47593-d374-4fb4-a431-f566f15a9924" alt="drawing" width="200"/>
-<img src="https://github.com/ChaserVasya/converter/assets/74578917/a2134856-16b1-4259-9a84-365dedad5b05" alt="drawing" width="200"/>
+От себя были добавлены следующий функционал вне тз:
+- валидация числа
+- дебансинг на конвертирование при изменении числа
+
+## Стэк
+- Локальная бд - isar
+- Клиент - dio
+- А также: fvm, bloc, rxdart, freezed, auto_router, injectable, mockito, flutter_dotenv
+
+## От себя
+Токен для https://exchangeratesapi.io/ не опубликован. Сгенерируйте и вставьте его в env/.env, в поле с названием EXCHANGE_KEY
+
+<img src="https://github.com/ChaserVasya/converter/assets/74578917/599098df-a365-4653-a2fc-d30ab8bf5051" alt="drawing" width="200"/>
+<img src="https://github.com/ChaserVasya/converter/assets/74578917/2e1ff256-cf26-46c2-abc3-b5f10170423a" alt="drawing" width="200"/>
+<img src="https://github.com/ChaserVasya/converter/assets/74578917/608089cc-07e6-4a4f-8b9c-9c65594c3dd2" alt="drawing" width="200"/>
+<img src="https://github.com/ChaserVasya/converter/assets/74578917/dd6b034e-465e-4c89-80ec-a26877acdc69" alt="drawing" width="200"/>
