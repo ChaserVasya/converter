@@ -138,25 +138,16 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
         ));
       },
       swap: (money1, money2) {
-        if (money2.value != null) {
-          controller2.text = money2.value!.toStringAsFixed(4);
-        }
-        if (money1.value != null) {
-          controller1.text = money1.value!.toStringAsFixed(4);
-        }
+        controller2.text = money2.value?.toStringAsFixed(4) ?? '';
+        controller1.text = money1.value?.toStringAsFixed(4) ?? '';
       },
       refreshed: (money, field) {
         final value = money.value?.toStringAsFixed(4);
-        switch (field) {
-          case CurrencyFields.first:
-            if (value != null) {
-              controller1.text = value;
-            }
-          case CurrencyFields.second:
-            if (value != null) {
-              controller2.text = value;
-            }
-        }
+        if (value == null) return null;
+        return switch (field) {
+          CurrencyFields.first => controller1.text = value,
+          CurrencyFields.second => controller2.text = value,
+        };
       },
     );
   }
