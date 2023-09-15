@@ -102,6 +102,7 @@ class ConvertingBloc extends Bloc<ConvertingEvent, ConvertingState> {
     final money2 = curState.money2;
     if (money2.currencyCode == null) return;
     if (money1.currencyCode == null) return;
+    if (money2.value == null && money1.value == null) return;
 
     // По-умному смотрим что ещё не инициализировано
     if (money1.value == null && money2.value != null) {
